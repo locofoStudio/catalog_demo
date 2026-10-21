@@ -8,7 +8,7 @@
   --tab-bg: #e8e8ed;
   --nav-h: 52px;
   --nav-h-mobile: 88px;
-  --drawer-w: 400px;
+  --drawer-w: 380px;
   --bp-mobile: 900px;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
@@ -582,6 +582,19 @@ button {
 
   .nav-export-short {
     display: inline;
+  }
+
+  /* PDP mobile: Shortlist + Export PDF only (full label), no Products */
+  body[data-product-id] .nav-link-products {
+    display: none;
+  }
+
+  body[data-product-id] .nav-export-long {
+    display: inline;
+  }
+
+  body[data-product-id] .nav-export-short {
+    display: none;
   }
 
   .pdp {

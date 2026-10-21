@@ -1,8 +1,6 @@
 (function () {
   const items = window.LocofoCatalog?.getListing() || [];
   const grid = document.getElementById('productGrid');
-  const countEl = document.getElementById('listingCount');
-
   if (!grid) return;
 
   const PLACEHOLDER_LABELS = {
@@ -58,9 +56,4 @@
   }
 
   grid.innerHTML = items.map((item) => `<li>${cardInner(item)}</li>`).join('');
-
-  if (countEl) {
-    countEl.textContent =
-      'B2B catalog sample for buyer presentations — only MH900 is interactive; other cards are mock samples.';
-  }
 })();

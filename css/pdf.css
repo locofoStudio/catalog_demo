@@ -198,3 +198,28 @@ body.pdf-body {
     size: letter;
   }
 }
+
+/* Mobile: stack sheet (toolbar → hero → callouts → specs) */
+@media (max-width: 900px) {
+  #pdfSheets .sheet {
+    margin: 16px 12px 32px;
+    padding: 24px 20px 20px;
+  }
+
+  .sheet-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .sheet-title {
+    font-size: 26px;
+  }
+
+  .thumb-row {
+    flex-wrap: wrap;
+  }
+
+  .thumb-row img {
+    width: 110px;
+  }
+}
