@@ -19,10 +19,17 @@
   box-sizing: border-box;
 }
 
-html,
-body {
+html {
   margin: 0;
   height: 100%;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
   color: var(--ink);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
@@ -127,6 +134,43 @@ button {
 
 .nav-export-long {
   display: inline;
+}
+
+
+/* —— Desktop scroll theater: tab-to-tab + matching frames —— */
+.theater {
+  position: relative;
+}
+
+@media (min-width: 901px) {
+  .theater {
+    height: 400vh; /* runway so scroll drives tabs + frames */
+  }
+
+  .theater .pdp {
+    position: sticky;
+    top: var(--nav-h);
+    height: calc(100vh - var(--nav-h));
+    min-height: 0;
+    padding-top: 0;
+    overflow: hidden;
+    align-items: stretch;
+  }
+
+  .theater .copy-col {
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .theater .stage-col {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .theater {
+    height: auto;
+  }
 }
 
 /* —— PDP split —— */
