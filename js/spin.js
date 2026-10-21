@@ -84,41 +84,60 @@
     { passive: false }
   );
 
-  /* Drag scrub */
+  /* Drag scrub (pointer + mouse for broad compatibility) */
   let dragging = false;
   let lastX = 0;
   const dragThreshold = 28;
 
-  stage.addEventListener('pointerdown', (e) => {
-    if (e.button !== 0) return;
+  function onDragStart(clientX, pointerId) {
     dragging = true;
-    lastX = e.clientX;
-    stage.setPointerCapture(e.pointerId);
+    lastX = clientX;
     stage.classList.add('is-dragging');
-  });
-
-  stage.addEventListener('pointermove', (e) => {
-    if (!dragging) return;
-    const dx = e.clientX - lastX;
-    if (Math.abs(dx) >= dragThreshold) {
-      advance(dx > 0 ? 1 : -1);
-      lastX = e.clientX;
-    }
-  });
-
-  function endDrag(e) {
-    if (!dragging) return;
-    dragging = false;
-    stage.classList.remove('is-dragging');
-    try {
-      stage.releasePointerCapture(e.pointerId);
-    } catch {
-      /* ignore */
+    if (pointerId != null && stage.setPointerCapture) {
+      try {
+        stage.setPointerCapture(pointerId);
+      } catch {
+        /* ignore */
+      }
     }
   }
 
-  stage.addEventListener('pointerup', endDrag);
-  stage.addEventListener('pointercancel', endDrag);
+  function onDragMove(clientX) {
+    if (!dragging) return;
+    const dx = clientX - lastX;
+    if (Math.abs(dx) >= dragThreshold) {
+      advance(dx > 0 ? 1 : -1);
+      lastX = clientX;
+    }
+  }
+
+  function endDrag(pointerId) {
+    if (!dragging) return;
+    dragging = false;
+    stage.classList.remove('is-dragging');
+    if (pointerId != null && stage.releasePointerCapture) {
+      try {
+        stage.releasePointerCapture(pointerId);
+      } catch {
+        /* ignore */
+      }
+    }
+  }
+
+  stage.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0) return;
+    onDragStart(e.clientX, e.pointerId);
+  });
+  stage.addEventListener('pointermove', (e) => onDragMove(e.clientX));
+  stage.addEventListener('pointerup', (e) => endDrag(e.pointerId));
+  stage.addEventListener('pointercancel', (e) => endDrag(e.pointerId));
+
+  stage.addEventListener('mousedown', (e) => {
+    if (e.button !== 0) return;
+    onDragStart(e.clientX, null);
+  });
+  window.addEventListener('mousemove', (e) => onDragMove(e.clientX));
+  window.addEventListener('mouseup', () => endDrag(null));
 
   window.LocofoSpin = { setFrame, getFrame: () => current };
 })();
