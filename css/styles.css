@@ -375,11 +375,19 @@ button {
 }
 
 /* —— Shortlist drawer —— */
+.drawer-backdrop[hidden] {
+  display: none !important;
+}
+
 .drawer-backdrop {
   position: fixed;
   inset: 0;
   z-index: 80;
   background: rgba(0, 0, 0, 0.28);
+}
+
+.drawer[hidden] {
+  display: none !important;
 }
 
 .drawer {
