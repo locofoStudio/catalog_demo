@@ -12,11 +12,12 @@ python3 -m http.server 8080
 # or: npx --yes serve -p 8080
 ```
 
-Open [http://localhost:8080](http://localhost:8080) in a desktop browser (~1440px width recommended).
+Open [http://localhost:8080](http://localhost:8080) for the product grid, then open **MH900** for the interactive PDP (`product.html`). Use a desktop browser (~1440px width recommended).
 
 ## Features
 
-- **PDP** — Copy and tabs on the left; product 360 on the right. Nav: Products, Shortlist count, Export PDF. Wholesale chip: “Wholesale demo · price on request”.
+- **Product listing** (`index.html`) — Decathlon-style running/cycling sunglasses grid; wholesale pricing only; one live card (MH900) plus mock demo cards.
+- **PDP** (`product.html`) — Copy and tabs on the left; product 360 on the right. Nav: Products, Shortlist count, Export PDF. Wholesale chip: “Wholesale demo · price on request”.
 - **360 viewer** — Seven local frames in `frames/`. Scroll the wheel over the product area or drag horizontally to advance; pills and `n / 7` badge update.
 - **Tabs** — Description, Details, Weight, Colors (click to switch).
 - **Shortlist** — “Save to shortlist” persists to `localStorage`; drawer lists items with Remove; count in nav updates after refresh.

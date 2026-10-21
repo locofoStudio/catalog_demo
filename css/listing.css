@@ -1,0 +1,250 @@
+.listing {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + 40px) 48px 80px;
+}
+
+.listing-intro {
+  margin-bottom: 36px;
+  max-width: 720px;
+}
+
+.listing-breadcrumb {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+}
+
+.listing-intro h1 {
+  margin: 0 0 12px;
+  font-size: clamp(32px, 3.5vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+
+.listing-lede {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.listing-count {
+  margin: 16px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.nav-link-current {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.product-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px 20px;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.product-card--live:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.product-card--mock {
+  opacity: 0.92;
+  cursor: default;
+}
+
+.card-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--line);
+  border-radius: 980px;
+  padding: 4px 10px;
+  color: var(--muted);
+}
+
+.card-body {
+  padding: 16px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 6px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.card-ref {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.card-price {
+  margin: 4px 0 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.card-cta {
+  margin-top: auto;
+  padding-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.card-demo-tag {
+  margin-top: auto;
+  padding-top: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Offline placeholder “product shots” */
+.card-placeholder {
+  width: 78%;
+  height: 42%;
+  border-radius: 40% 40% 38% 38% / 55% 55% 35% 35%;
+  position: relative;
+  box-shadow: inset 0 -8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.card-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 18% 12% auto;
+  height: 38%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), transparent);
+}
+
+.ph-mh500 {
+  background: linear-gradient(145deg, #2a2d33 0%, #1a1c20 55%, #3d5a80 100%);
+}
+
+.ph-mh500::before {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 32%;
+  height: 28%;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #4a6fa5, #7eb0e8);
+  opacity: 0.85;
+}
+
+.ph-antifog {
+  background: linear-gradient(160deg, #f0f0f2 0%, #d8d8dc 100%);
+  box-shadow: inset 0 -6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.ph-antifog::before {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 30%;
+  height: 30%;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #9aa3ad, #c5cdd6);
+}
+
+.ph-active {
+  background: linear-gradient(145deg, #4b4f56 0%, #35383d 100%);
+}
+
+.ph-active::before {
+  content: '';
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 34%;
+  height: 24%;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #5c5f66, #8a8d93);
+}
+
+.ph-explore {
+  background: linear-gradient(145deg, #6b5d45 0%, #4a4032 100%);
+}
+
+.ph-explore::before {
+  content: '';
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  top: 32%;
+  height: 26%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #8b7355, #c4a574);
+}
+
+.shortlist-view {
+  display: inline-block;
+  font-size: 12px;
+  color: var(--accent);
+  margin-right: 12px;
+}
+
+.shortlist-view:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 1400px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
