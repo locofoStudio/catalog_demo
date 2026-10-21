@@ -190,48 +190,46 @@
     },
   };
 
+  /** Category grid — Figma Catalog UI MH900 v1 (only MH900 is interactive) */
   const listing = [
     {
       id: '8827754',
-      name: 'CAT.2-4 Sunglasses MH900 Full Lens HD',
-      variant: 'Grey Volcano',
-      ref: '8827754',
-      badge: 'CAT 2–4 · Photochromic',
-      live: true,
+      interactive: true,
+      title: 'MH900 Full Lens HD',
+      subtitle: 'Grey Volcano · SKU 8827754',
+      tags: 'CAT 2–4 · Photochromic · Mountain',
     },
     {
       id: '863953',
-      name: "Adults' Hiking Sunglasses MH500 Category 3",
-      variant: 'Smoked black',
-      ref: '863953',
-      badge: 'CAT 3 · Hiking',
-      live: true,
+      interactive: false,
+      title: 'MH500 Category 3',
+      subtitle: 'Hiking sunglasses',
+      tags: 'CAT 3 · Wraparound · Trail',
+      placeholder: 'mh500',
     },
     {
       id: '8648844',
-      name: 'Anti-Fog Full UV Protection Sport Sunglasses',
-      variant: 'Snow white / White',
-      ref: '8648844',
-      badge: 'CAT 3 · Anti-fog',
-      live: true,
+      interactive: false,
+      title: 'Anti-Fog Full UV Sport',
+      subtitle: 'White · Ref 8648844',
+      tags: 'CAT 3 · Anti-fog · Cycling',
+      placeholder: 'af',
     },
     {
       id: 'active-100',
-      name: 'Sunglasses Active 100 Cat 3',
-      variant: 'Grey / Smoke lens',
-      ref: '8545258',
-      badge: 'CAT 3 · Sport',
-      live: false,
-      placeholder: 'ph-active',
+      interactive: false,
+      title: 'Active 100 Category 3',
+      subtitle: 'Everyday sport sunglasses',
+      tags: 'CAT 3 · Lightweight · Running',
+      placeholder: 'a100',
     },
     {
       id: 'explore-500',
-      name: 'Sunglasses Explore 500 SQR',
-      variant: 'Khaki / Brown lens',
-      ref: '8776051',
-      badge: 'Square frame',
-      live: false,
-      placeholder: 'ph-explore',
+      interactive: false,
+      title: 'Explore 500 SQR Polarised',
+      subtitle: 'Square frame · Polarised',
+      tags: 'CAT 3 · Polarised · Lifestyle',
+      placeholder: 'e500',
     },
   ];
 
@@ -246,14 +244,13 @@
 
     getListing() {
       return listing.map((row) => {
-        if (!row.live) return row;
+        if (!row.interactive) return row;
         const p = products[row.id];
         if (!p) return row;
         return {
           ...row,
           href: p.pdpHref,
           thumb: p.thumb,
-          placeholder: null,
         };
       });
     },

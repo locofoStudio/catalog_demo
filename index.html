@@ -12,16 +12,19 @@
 </head>
 <body>
   <header class="nav" role="banner">
-    <a class="brand" href="index.html">Locofo Catalog</a>
+    <div class="nav-start">
+      <a class="brand" href="index.html">Locofo Catalog</a>
+      <div class="chip chip--mobile" aria-label="Pricing">Wholesale demo · price on request</div>
+    </div>
     <div class="nav-end">
       <nav class="nav-links" aria-label="Primary">
         <a href="index.html" class="nav-link nav-link-current" aria-current="page">Products</a>
         <button type="button" class="nav-link nav-link-btn" id="openShortlistNav" aria-haspopup="dialog">
           Shortlist (<span id="shortlistCount">0</span>)
         </button>
-        <a href="pdf.html" class="nav-link">Export PDF</a>
+        <a href="pdf.html" class="nav-link"><span class="nav-export-long">Export PDF</span><span class="nav-export-short">PDF</span></a>
       </nav>
-      <div class="chip" aria-label="Pricing">Wholesale demo · price on request</div>
+      <div class="chip chip--desktop" aria-label="Pricing">Wholesale demo · price on request</div>
     </div>
   </header>
 
@@ -30,8 +33,8 @@
       <p class="listing-breadcrumb">Accessories · Sunglasses</p>
       <h1>Running &amp; cycling sunglasses</h1>
       <p class="listing-lede">
-        B2B wholesale demo grid inspired by Decathlon category layouts. Retail prices hidden — request
-        quotes through your Locofo buyer contact.
+        B2B wholesale catalog sample for buyer presentations. Retail prices are hidden — all cards show
+        price on request. Only the MH900 card opens the full interactive PDP in this demo.
       </p>
       <p class="listing-count" id="listingCount" aria-live="polite"></p>
     </header>

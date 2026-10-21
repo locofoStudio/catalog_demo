@@ -11,16 +11,19 @@
 </head>
 <body data-product-id="863953">
   <header class="nav" role="banner">
-    <a class="brand" href="index.html">Locofo Catalog</a>
+    <div class="nav-start">
+      <a class="brand" href="index.html">Locofo Catalog</a>
+      <div class="chip chip--mobile" aria-label="Pricing">Wholesale demo · price on request</div>
+    </div>
     <div class="nav-end">
       <nav class="nav-links" aria-label="Primary">
         <a href="index.html" class="nav-link">Products</a>
         <button type="button" class="nav-link nav-link-btn" id="openShortlistNav" aria-haspopup="dialog">
           Shortlist (<span id="shortlistCount">0</span>)
         </button>
-        <a href="pdf.html" class="nav-link" id="navExportPdf">Export PDF</a>
+        <a href="pdf.html" class="nav-link" id="navExportPdf"><span class="nav-export-long">Export PDF</span><span class="nav-export-short">PDF</span></a>
       </nav>
-      <div class="chip" aria-label="Pricing">Wholesale demo · price on request</div>
+      <div class="chip chip--desktop" aria-label="Pricing">Wholesale demo · price on request</div>
     </div>
   </header>
 
@@ -65,7 +68,7 @@
 
       <div class="cta-row">
         <button type="button" class="btn btn-primary" id="saveShortlist">Save to shortlist</button>
-        <a class="btn btn-secondary" href="pdf.html">Export PDF</a>
+        <a class="btn btn-outline" href="pdf.html">Export PDF</a>
       </div>
     </section>
 

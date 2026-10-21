@@ -1,39 +1,42 @@
-# Locofo Catalog — B2B product demo (MH900)
+# Locofo Catalog — B2B product demo (MH900 v1)
 
-Desktop-first interactive catalog demo for **Decathlon CAT.2-4 Sunglasses MH900 Full Lens HD** (Grey Volcano · 8827754). Matches the Figma **Catalog UI — MH900 v1** frames: PDP with 360° frame scrub, shortlist drawer, and Haloo-style PDF export.
+Desktop + mobile UI aligned with Figma **Catalog UI — MH900 v1** (Hello Loco sign-off). Wholesale B2B demo for Decathlon-style sunglasses; **MH900** is the only interactive listing card; additional SKUs remain in the registry for deep-link PDPs and multi-sheet PDF tests.
 
 ## Run locally
 
-No build step required — static HTML/CSS/JS.
-
 ```bash
-# From the repo root
 python3 -m http.server 8080
-# or: npx --yes serve -p 8080
+# http://localhost:8080
 ```
 
-Open [http://localhost:8080](http://localhost:8080) for the product grid. Interactive PDPs: **MH900** (`product.html`), **MH500 863953** (`product-mh500.html`), and **Anti-Fog 8648844** (`product-antifog.html`). Use a desktop browser (~1440px width recommended).
+Use ~1440px width for desktop QA and ≤900px (or device toolbar) for mobile layouts.
 
-## Features
+## Pages
 
-- **Product listing** (`index.html`) — Decathlon-style sunglasses grid; wholesale pricing only; three live cards (MH900, MH500 863953, Anti-Fog 8648844) plus mock demo cards.
-- **PDPs** (`product.html`, `product-mh500.html`, `product-antifog.html`) — Copy and tabs on the left; product 360 on the right. Nav: Products, Shortlist count, Export PDF. Wholesale chip: “Wholesale demo · price on request”.
-- **360 viewer** — Seven local frames in `frames/`. Scroll the wheel over the product area or drag horizontally to advance; pills and `n / 7` badge update.
-- **Tabs** — Description, Details, Weight, Colors (click to switch).
-- **Shortlist** — “Save to shortlist” persists to `localStorage`; drawer lists items with Remove; count in nav updates after refresh.
-- **PDF** — `pdf.html` renders one Haloo-style sheet per shortlisted SKU (or MH900 demo if empty); use **Print / Save PDF** for multi-page export.
+| Page | Role |
+|------|------|
+| `index.html` | Category listing (3-col desktop / 1-col mobile) |
+| `product.html` | **MH900** interactive PDP (copy left, stage right on desktop; stage top on mobile) |
+| `product-mh500.html`, `product-antifog.html` | Extra PDPs (not linked from listing; optional for PDF/QA) |
+| `pdf.html` | One Haloo-style sheet per shortlisted SKU; MH900 fallback if empty |
+
+## Figma reference
+
+[Catalog UI — MH900 v1](https://www.figma.com/design/wuHRlPAk9qQC5x6HAihMqQ/Untitled?node-id=35-2)
+
+Key frames: desktop listing `54:2`, PDP Description `41:2`, Shortlist drawer `41:184`, PDF `35:254`; mobile listing `65:4`, PDP `67:2`, shortlist bottom sheet `67:180`.
+
+## UI specs (implemented)
+
+- **Brand:** Locofo Catalog; nav chip **Wholesale demo · price on request** (under title on mobile).
+- **Listing:** **Price on request** on cards; MH900 **Interactive demo** badge; other cards **Demo sample** with gradient placeholders.
+- **PDP:** No retail / Apple hero meta; 7-frame spin; **Export PDF** as outline button; shortlist drawer (desktop right rail / mobile ~70% bottom sheet).
+- **PDF:** Logistics `[placeholder]` lines; multi-page print when multiple SKUs are shortlisted.
 
 ## Assets
 
-- `frames/` — MH900; `frames-mh500/` — MH500 863953; `frames-antifog/` — Anti-Fog 8648844 (local 360 sequences only).
-- `figma-shots/` — Reference screenshots from Figma.
-- `scroll-360-reference.html` — Earlier scroll prototype (behavior reference only).
+- `frames/` — MH900 360
+- `frames-mh500/`, `frames-antifog/` — optional PDP sequences
+- `figma-shots/` — earlier reference stills
 
-## Design source
-
-[Figma — Catalog UI MH900 v1](https://www.figma.com/design/wuHRlPAk9qQC5x6HAihMqQ/Untitled?node-id=35-2)
-
-## Notes
-
-- Desktop-first; mobile breakpoints intentionally omitted for v1.
-- Demo only — not affiliated with Decathlon or Apple.
+Demo only — not affiliated with Decathlon or Apple.

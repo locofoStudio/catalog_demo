@@ -1,12 +1,12 @@
 .listing {
   max-width: 1280px;
   margin: 0 auto;
-  padding: calc(var(--nav-h) + 40px) 48px 80px;
+  padding: calc(var(--nav-h) + 32px) 48px 80px;
 }
 
 .listing-intro {
-  margin-bottom: 36px;
-  max-width: 720px;
+  margin-bottom: 32px;
+  max-width: 820px;
 }
 
 .listing-breadcrumb {
@@ -33,9 +33,10 @@
 }
 
 .listing-count {
-  margin: 16px 0 0;
+  margin: 14px 0 0;
   font-size: 12px;
   color: var(--muted);
+  line-height: 1.45;
 }
 
 .nav-link-current {
@@ -49,7 +50,7 @@
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px 20px;
+  gap: 20px 18px;
 }
 
 .product-card {
@@ -57,32 +58,34 @@
   flex-direction: column;
   height: 100%;
   background: var(--white);
-  border-radius: 16px;
+  border-radius: 14px;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.06);
-  transition: box-shadow 0.2s ease, transform 0.15s ease;
   text-decoration: none;
   color: inherit;
 }
 
-.product-card--live:hover {
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+.product-card--interactive {
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.product-card--interactive:hover {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
 }
 
-.product-card--mock {
-  opacity: 0.92;
+.product-card--sample {
   cursor: default;
 }
 
 .card-media {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   background: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 20px;
 }
 
 .card-img {
@@ -91,32 +94,42 @@
   object-fit: contain;
 }
 
-.card-badge {
+.card-demo-badge {
   position: absolute;
   top: 12px;
   left: 12px;
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid var(--line);
   border-radius: 980px;
-  padding: 4px 10px;
-  color: var(--muted);
+  padding: 5px 10px;
+}
+
+.card-demo-badge--interactive {
+  background: var(--ink);
+  color: var(--white);
+}
+
+@media (min-width: 901px) {
+  .card-demo-badge--interactive {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 9px;
+  }
 }
 
 .card-body {
-  padding: 16px 18px 20px;
+  padding: 14px 16px 18px;
   display: flex;
   flex-direction: column;
   flex: 1;
-  gap: 6px;
+  gap: 4px;
 }
 
 .card-title {
   margin: 0;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   line-height: 1.35;
   letter-spacing: -0.01em;
@@ -128,23 +141,21 @@
   color: var(--muted);
 }
 
-.card-price {
-  margin: 4px 0 0;
+.card-tags {
+  margin: 2px 0 0;
   font-size: 12px;
-  font-weight: 500;
+  color: var(--muted);
+}
+
+.card-price {
+  margin: 8px 0 0;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--ink);
 }
 
-.card-cta {
-  margin-top: auto;
-  padding-top: 10px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--accent);
-}
-
 .card-demo-tag {
-  margin-top: auto;
+  margin-top: 10px;
   padding-top: 10px;
   font-size: 11px;
   font-weight: 500;
@@ -152,84 +163,41 @@
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-/* Offline placeholder “product shots” */
 .card-placeholder {
-  width: 78%;
-  height: 42%;
-  border-radius: 40% 40% 38% 38% / 55% 55% 35% 35%;
-  position: relative;
-  box-shadow: inset 0 -8px 24px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
 }
 
-.card-placeholder::after {
-  content: '';
-  position: absolute;
-  inset: 18% 12% auto;
-  height: 38%;
-  border-radius: 50%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), transparent);
+.card-placeholder span {
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.12);
 }
 
-.ph-mh500 {
-  background: linear-gradient(145deg, #2a2d33 0%, #1a1c20 55%, #3d5a80 100%);
+.card-placeholder--mh500 {
+  background: linear-gradient(145deg, #c8d4c0 0%, #9aab8f 45%, #7d8f72 100%);
 }
 
-.ph-mh500::before {
-  content: '';
-  position: absolute;
-  left: 8%;
-  right: 8%;
-  top: 32%;
-  height: 28%;
-  border-radius: 8px;
-  background: linear-gradient(90deg, #4a6fa5, #7eb0e8);
-  opacity: 0.85;
+.card-placeholder--af {
+  background: linear-gradient(145deg, #e8eaed 0%, #c5c9cf 50%, #a8adb5 100%);
 }
 
-.ph-antifog {
-  background: linear-gradient(160deg, #f0f0f2 0%, #d8d8dc 100%);
-  box-shadow: inset 0 -6px 20px rgba(0, 0, 0, 0.06);
+.card-placeholder--af span {
+  color: rgba(255, 255, 255, 0.95);
 }
 
-.ph-antifog::before {
-  content: '';
-  position: absolute;
-  left: 10%;
-  right: 10%;
-  top: 30%;
-  height: 30%;
-  border-radius: 6px;
-  background: linear-gradient(90deg, #9aa3ad, #c5cdd6);
+.card-placeholder--a100 {
+  background: linear-gradient(145deg, #d4d7dc 0%, #a8adb5 50%, #8a9099 100%);
 }
 
-.ph-active {
-  background: linear-gradient(145deg, #4b4f56 0%, #35383d 100%);
-}
-
-.ph-active::before {
-  content: '';
-  position: absolute;
-  left: 12%;
-  right: 12%;
-  top: 34%;
-  height: 24%;
-  border-radius: 6px;
-  background: linear-gradient(90deg, #5c5f66, #8a8d93);
-}
-
-.ph-explore {
-  background: linear-gradient(145deg, #6b5d45 0%, #4a4032 100%);
-}
-
-.ph-explore::before {
-  content: '';
-  position: absolute;
-  left: 14%;
-  right: 14%;
-  top: 32%;
-  height: 26%;
-  border-radius: 4px;
-  background: linear-gradient(90deg, #8b7355, #c4a574);
+.card-placeholder--e500 {
+  background: linear-gradient(145deg, #e8dfd0 0%, #c9b89a 50%, #a89272 100%);
 }
 
 .shortlist-view {
@@ -243,8 +211,23 @@
   text-decoration: underline;
 }
 
-@media (min-width: 1400px) {
+@media (max-width: 900px) {
+  .listing {
+    padding: calc(var(--nav-h-mobile) + 20px) 20px 48px;
+  }
+
   .product-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .card-media {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
