@@ -252,6 +252,10 @@ button {
   border: 1px solid var(--line);
 }
 
+.swatch-smoked {
+  background: linear-gradient(145deg, #3d3f44 0%, #1a1b1e 55%, #2a2c30 100%);
+}
+
 .cta-row {
   display: flex;
   flex-wrap: wrap;

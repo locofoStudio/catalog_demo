@@ -20,6 +20,16 @@
     'frames-antifog/07.jpg',
   ];
 
+  const MH500_FRAMES = [
+    'frames-mh500/01.jpg',
+    'frames-mh500/02.jpg',
+    'frames-mh500/03.jpg',
+    'frames-mh500/04.jpg',
+    'frames-mh500/05.jpg',
+    'frames-mh500/06.jpg',
+    'frames-mh500/07.jpg',
+  ];
+
   const products = {
     '8827754': {
       id: '8827754',
@@ -120,6 +130,64 @@
         ],
       },
     },
+    '863953': {
+      id: '863953',
+      title: "Adults' Hiking Sunglasses MH500",
+      subtitle: 'MH500 Category 3',
+      variant: 'Smoked black',
+      eyebrow: 'CAT 3 · Quechua MH500 Hiking',
+      pdpHref: 'product-mh500.html',
+      frames: MH500_FRAMES,
+      thumb: 'frames-mh500/01.jpg',
+      pdf: {
+        sheetTitle: 'HIKING SUNGLASSES MH500',
+        meta: 'MH500 Category 3 · Smoked black · Model 863953',
+        summary:
+          "Lightweight Quechua hiking sunglasses for regular mountain use. CAT 3 lenses with wraparound coverage, large lenses for peripheral vision, and shaped temples for stability — wholesale spec for buyer presentations.",
+        hero: 'frames-mh500/01.jpg',
+        heroAlt: "Quechua MH500 Hiking Sunglasses Smoked black model 863953",
+        thumbs: ['frames-mh500/01.jpg', 'frames-mh500/04.jpg'],
+        bullets: [
+          'CAT 3 · 100% UV · Wraparound coverage',
+          '~29 g · Large lenses · Shaped temples',
+          'Polycarbonate lenses · Polyamide frame',
+        ],
+        blocks: [
+          {
+            title: 'Materials',
+            lines: [
+              'Lens: Polycarbonate · Frame: Polyamide',
+              'Screws: Stainless steel',
+            ],
+          },
+          {
+            title: 'Dimensions / Weight',
+            lines: [
+              'Product net weight: ~29 g · One size',
+              'Smoked black colorway',
+            ],
+          },
+          {
+            title: 'Performance',
+            lines: [
+              'CAT 3 · 100% UV · Ideal for regular mountain hiking',
+              'Wraparound vs wind, splash, weather · Peripheral vision',
+            ],
+          },
+          {
+            title: 'Accessories (optional)',
+            lines: ['Compatible with MH ACC 100 L / 500 L retainer straps'],
+          },
+          {
+            title: 'Logistics (placeholders — not final)',
+            lines: [
+              'Case pack: [placeholder] / carton · Origin: China',
+              'Loading qty: [placeholder] — confirm with ops',
+            ],
+          },
+        ],
+      },
+    },
   };
 
   const listing = [
@@ -132,13 +200,12 @@
       live: true,
     },
     {
-      id: 'mh500-cat3',
-      name: 'Sunglasses MH500 Cat 3',
-      variant: 'Black / Blue lenses',
-      ref: '8776054',
-      badge: 'CAT 3',
-      live: false,
-      placeholder: 'ph-mh500',
+      id: '863953',
+      name: "Adults' Hiking Sunglasses MH500 Category 3",
+      variant: 'Smoked black',
+      ref: '863953',
+      badge: 'CAT 3 · Hiking',
+      live: true,
     },
     {
       id: '8648844',
