@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en-HK">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Locofo Catalog - MH900 scroll spin</title>
+  <style>
+    :root {
+      --ink: #1d1d1f;
+      --muted: #6e6e73;
+      --line: #d2d2d7;
+      --bg: #f5f5f7;
+      --white: #fff;
+      --accent: #0071e3;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: auto; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Nav */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      height: 52px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px;
+      background: rgba(251,251,253,0.82);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .nav .brand { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+    .nav .links { display: flex; gap: 22px; font-size: 12px; color: var(--muted); }
+    .nav .chip {
+      font-size: 11px; color: var(--muted);
+      border: 1px solid var(--line); border-radius: 980px;
+      padding: 5px 10px; background: var(--white);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 120px 24px 40px;
+      text-align: center;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .hero .eyebrow {
+      font-size: 14px; font-weight: 600; color: var(--accent);
+      margin-bottom: 10px; letter-spacing: -0.01em;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(40px, 7vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+    }
+    .hero p {
+      margin: 16px auto 0;
+      max-width: 520px;
+      font-size: 19px;
+      line-height: 1.4;
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .scroll-cue {
+      margin-top: 28px;
+      font-size: 13px;
+      color: var(--muted);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.45; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(4px); }
+    }
+
+    /* Scroll theater - tall track, sticky stage */
+    .theater {
+      position: relative;
+      height: 420vh; /* scroll runway for 7 frames */
+    }
+    .theater-sticky {
+      position: sticky;
+      top: 52px;
+      height: calc(100vh - 52px);
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 0;
+      align-items: stretch;
+      overflow: hidden;
+    }
+    .theater-sticky .copy-col { order: 1; }
+    .theater-sticky .stage-col { order: 2; }
+    @media (max-width: 900px) {
+      .theater-sticky {
+        grid-template-columns: 1fr;
+        grid-template-rows: 58% 42%;
+      }
+      .theater-sticky .stage-col { order: 1; }
+      .theater-sticky .copy-col { order: 2; }
+    }
+
+    .stage-col {
+      position: relative;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .canvas-wrap {
+      position: relative;
+      width: min(100%, 620px);
+      aspect-ratio: 1;
+    }
+    canvas#spin {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .frame-badge {
+      position: absolute;
+      left: 50%;
+      bottom: 8px;
+      transform: translateX(-50%);
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+      color: var(--muted);
+      background: rgba(245,245,247,0.9);
+      border: 1px solid var(--line);
+      border-radius: 980px;
+      padding: 4px 10px;
+      pointer-events: none;
+    }
+    .pills {
+      position: absolute;
+      top: 20px;
+      left: 24px;
+      display: flex;
+      gap: 6px;
+    }
+    .pills span {
+      height: 6px;
+      width: 6px;
+      border-radius: 980px;
+      background: #d2d2d7;
+      transition: width 0.2s, background 0.2s;
+    }
+    .pills span.on {
+      width: 22px;
+      background: var(--accent);
+    }
+
+    .copy-col {
+      position: relative;
+      background: var(--bg);
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    @media (max-width: 900px) {
+      .copy-col { padding: 20px 24px 32px; }
+    }
+    .panel {
+      position: absolute;
+      inset: 48px 40px;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    @media (max-width: 900px) {
+      .panel { inset: 16px 20px; }
+    }
+    .panel.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .panel .tab {
+      display: inline-flex;
+      gap: 4px;
+      background: #e8e8ed;
+      border-radius: 980px;
+      padding: 3px;
+      margin-bottom: 18px;
+      width: fit-content;
+      font-size: 11px;
+    }
+    .panel .tab i {
+      font-style: normal;
+      padding: 5px 10px;
+      border-radius: 980px;
+      color: var(--muted);
+    }
+    .panel .tab i.on {
+      background: var(--white);
+      color: var(--ink);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+    .panel h2 {
+      margin: 0 0 12px;
+      font-size: clamp(26px, 3.2vw, 36px);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+    .panel p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--muted);
+      max-width: 36ch;
+    }
+    .spec-list {
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+    .spec-list li strong {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .spec-list li span {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+    .weight-hero {
+      font-size: clamp(48px, 8vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin: 8px 0 6px;
+    }
+    .weight-hero small {
+      font-size: 0.35em;
+      font-weight: 600;
+      color: var(--muted);
+      margin-left: 4px;
+    }
+    .swatches {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .swatches button {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: default;
+      padding: 0;
+      outline: 2px solid transparent;
+    }
+    .swatches button.on {
+      outline-color: var(--accent);
+      outline-offset: 2px;
+    }
+    .swatch-a { background: linear-gradient(135deg, #4a4e55, #2c2f34); }
+    .swatch-b { background: linear-gradient(135deg, #c45c3e, #8b2e1a); }
+
+    /* After theater */
+    .after {
+      background: var(--white);
+      padding: 100px 24px 120px;
+      text-align: center;
+    }
+    .after h2 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing: -0.03em;
+    }
+    .after p {
+      margin: 0 auto 28px;
+      max-width: 480px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.45;
+    }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--ink);
+      color: var(--white);
+      border-radius: 980px;
+      padding: 12px 22px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .footer-note {
+      margin-top: 48px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="brand">Locofo Catalog</div>
+    <div class="links">
+      <span>Products</span>
+      <span>Contact</span>
+    </div>
+    <div class="chip">Wholesale demo · price on request</div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">CAT.2-4 · MH900 Full Lens HD</div>
+    <h1>Grey Volcano.<br />Turn as you scroll.</h1>
+    <div class="scroll-cue">Scroll to spin ↓</div>
+  </section>
+
+  <section class="theater" id="theater" aria-label="Scroll to rotate product">
+    <div class="theater-sticky">
+      <div class="stage-col">
+        <div class="pills" id="pills" aria-hidden="true"></div>
+        <div class="canvas-wrap">
+          <canvas id="spin" width="1200" height="1200"></canvas>
+          <div class="frame-badge" id="frameBadge">1 / 7</div>
+        </div>
+      </div>
+      <div class="copy-col">
+        <article class="panel active" data-panel="0">
+          <div class="tab"><i class="on">Description</i><i>Details</i><i>Weight</i><i>Colors</i></div>
+          <h2>Optimal precision and quality of vision.</h2>
+          <p>Adjustable nose bridge and arms, photochromic lenses, and ventilation - built for the mountains with full-coverage CAT 2–4 HD lenses.</p>
+        </article>
+        <article class="panel" data-panel="1">
+          <div class="tab"><i>Description</i><i class="on">Details</i><i>Weight</i><i>Colors</i></div>
+          <h2>Built for hard conditions.</h2>
+          <ul class="spec-list">
+            <li><strong>Sun protection</strong><span>Photochromic lens · 100% UV filter</span></li>
+            <li><strong>Anti-fogging</strong><span>Ventilated lens reduces fogging</span></li>
+            <li><strong>Robustness</strong><span>High-resistance polyurethane lenses</span></li>
+            <li><strong>Coverage</strong><span>Wraparound shape vs wind, spray, weather</span></li>
+          </ul>
+        </article>
+        <article class="panel" data-panel="2">
+          <div class="tab"><i>Description</i><i>Details</i><i class="on">Weight</i><i>Colors</i></div>
+          <h2>Light enough for long days.</h2>
+          <div class="weight-hero">36<small>g</small></div>
+          <p>Demo figure for the showcase. Swap in buyer-facing weight once confirmed for the live catalog.</p>
+        </article>
+        <article class="panel" data-panel="3">
+          <div class="tab"><i>Description</i><i>Details</i><i>Weight</i><i class="on">Colors</i></div>
+          <h2>Grey Volcano.</h2>
+          <p>Matte frame with reflective orange-copper lenses - the Decathlon MH900 look used to pitch the interactive catalog format.</p>
+          <div class="swatches">
+            <button type="button" class="swatch-a on" title="Grey Volcano frame" aria-label="Grey Volcano"></button>
+            <button type="button" class="swatch-b" title="Lens tint" aria-label="Lens tint"></button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="after">
+    <h2>Save · shortlist · export PDF</h2>
+    <p>Next beat in the Figma flow: shortlist drawer and Haloo-style PDF export. This page is the scroll-spin hero for client demos.</p>
+    <a class="cta" href="#theater">Spin again ↑</a>
+    <p class="footer-note">Locofo Catalog · Prototype · Not affiliated with Decathlon or Apple</p>
+  </section>
+
+  <script>
+    const FRAME_SRCS = [
+      'frames/01.jpg','frames/02.jpg','frames/03.jpg','frames/04.jpg',
+      'frames/05.jpg','frames/06.jpg','frames/07.jpg'
+    ];
+    const frameCount = FRAME_SRCS.length;
+    const theater = document.getElementById('theater');
+    const canvas = document.getElementById('spin');
+    const ctx = canvas.getContext('2d');
+    const badge = document.getElementById('frameBadge');
+    const pillsEl = document.getElementById('pills');
+    const panels = [...document.querySelectorAll('.panel')];
+
+    for (let i = 0; i < frameCount; i++) {
+      const s = document.createElement('span');
+      if (i === 0) s.classList.add('on');
+      pillsEl.appendChild(s);
+    }
+    const pillSpans = [...pillsEl.children];
+
+    const images = FRAME_SRCS.map((src) => {
+      const img = new Image();
+      img.src = src;
+      return img;
+    });
+
+    let current = 0;
+    let ready = 0;
+    images.forEach((img) => {
+      const done = () => {
+        ready += 1;
+        if (ready === 1) drawFrame(0);
+        if (ready === frameCount) onScroll();
+      };
+      if (img.complete) done();
+      else { img.onload = done; img.onerror = done; }
+    });
+
+    function drawFrame(index) {
+      const img = images[index];
+      if (!img || !img.complete || !img.naturalWidth) return;
+      const cw = canvas.width, ch = canvas.height;
+      ctx.clearRect(0, 0, cw, ch);
+      // contain fit on white
+      const scale = Math.min(cw / img.naturalWidth, ch / img.naturalHeight);
+      const w = img.naturalWidth * scale;
+      const h = img.naturalHeight * scale;
+      const x = (cw - w) / 2;
+      const y = (ch - h) / 2;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, cw, ch);
+      ctx.drawImage(img, x, y, w, h);
+    }
+
+    function setUI(index, progress) {
+      if (index !== current) {
+        current = index;
+        drawFrame(index);
+        badge.textContent = `${index + 1} / ${frameCount}`;
+        pillSpans.forEach((s, i) => s.classList.toggle('on', i === index));
+      }
+      // 4 copy panels across scroll progress
+      const panelIndex = Math.min(panels.length - 1, Math.floor(progress * panels.length));
+      panels.forEach((p, i) => p.classList.toggle('active', i === panelIndex));
+    }
+
+    function onScroll() {
+      const rect = theater.getBoundingClientRect();
+      const total = theater.offsetHeight - window.innerHeight;
+      // distance scrolled through theater
+      const scrolled = Math.min(Math.max(-rect.top, 0), total);
+      const progress = total > 0 ? scrolled / total : 0;
+      const frameIndex = Math.min(
+        frameCount - 1,
+        Math.max(0, Math.round(progress * (frameCount - 1)))
+      );
+      setUI(frameIndex, progress);
+    }
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        onScroll();
+        ticking = false;
+      });
+    }, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+  </script>
+</body>
+</html>

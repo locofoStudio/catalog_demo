@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Locofo Catalog - Anti-Fog Perf 500 Light</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="nav" role="banner">
+    <a class="brand" href="index.html">Locofo Catalog</a>
+    <div class="nav-end">
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html" class="nav-link">Products</a>
+        <button type="button" class="nav-link nav-link-btn" id="openShortlistNav" aria-haspopup="dialog">
+          Shortlist (<span id="shortlistCount">0</span>)
+        </button>
+        <a href="pdf.html" class="nav-link" id="navExportPdf">Export PDF</a>
+      </nav>
+      <div class="chip" aria-label="Pricing">Wholesale demo · price on request</div>
+    </div>
+  </header>
+
+  <main class="pdp" id="pdp">
+    <section class="copy-col" aria-label="Product information">
+      <p class="eyebrow">CAT.3 · Perf 500 Light</p>
+
+      <div class="tabs" role="tablist" aria-label="Product sections">
+        <button type="button" role="tab" id="tab-desc" class="tab on" aria-selected="true" aria-controls="panel-desc" data-tab="desc">Description</button>
+        <button type="button" role="tab" id="tab-details" class="tab" aria-selected="false" aria-controls="panel-details" data-tab="details">Details</button>
+        <button type="button" role="tab" id="tab-weight" class="tab" aria-selected="false" aria-controls="panel-weight" data-tab="weight">Weight</button>
+        <button type="button" role="tab" id="tab-colors" class="tab" aria-selected="false" aria-controls="panel-colors" data-tab="colors">Colors</button>
+      </div>
+
+      <div class="tab-panels">
+        <article class="tab-panel active" id="panel-desc" role="tabpanel" aria-labelledby="tab-desc" data-panel="desc">
+          <h1>Category 3 lenses that block 100% of UV.</h1>
+          <p class="lede">Frameless wraparound for running and cycling - wide coverage against wind and debris, with an anti-fog ventilated lens for hard efforts.</p>
+        </article>
+        <article class="tab-panel" id="panel-details" role="tabpanel" aria-labelledby="tab-details" data-panel="details" hidden>
+          <h1>Built for hard conditions.</h1>
+          <ul class="spec-list">
+            <li><strong>Sun protection</strong><span>CAT 3 · 100% UV / ISO 12312-1</span></li>
+            <li><strong>Anti-fogging</strong><span>Ventilated lens reduces fogging</span></li>
+            <li><strong>Robustness</strong><span>Polycarbonate lenses</span></li>
+            <li><strong>Coverage</strong><span>Wraparound shape vs wind and debris</span></li>
+            <li><strong>Stability</strong><span>Grips on nose and temples</span></li>
+          </ul>
+        </article>
+        <article class="tab-panel" id="panel-weight" role="tabpanel" aria-labelledby="tab-weight" data-panel="weight" hidden>
+          <h1>Light enough for long days.</h1>
+          <p class="weight-hero" aria-label="35.4 grams">35.4<span class="weight-unit">g</span></p>
+          <p class="lede">Product net weight for the White (Snow white) Anti-Fog sport model - confirm final figure with ops for buyer-facing catalogs.</p>
+        </article>
+        <article class="tab-panel" id="panel-colors" role="tabpanel" aria-labelledby="tab-colors" data-panel="colors" hidden>
+          <h1>White / Snow white.</h1>
+          <p class="lede">Snow white sport frame - the Decathlon Anti-Fog look used to pitch the interactive catalog format. Wholesale pricing on request.</p>
+          <div class="swatches" aria-label="Color options">
+            <button type="button" class="swatch on swatch-white" title="White / Snow white" aria-label="White / Snow white" aria-pressed="true"></button>
+          </div>
+        </article>
+      </div>
+
+      <div class="cta-row">
+        <button type="button" class="btn btn-primary" id="saveShortlist">Save to shortlist</button>
+        <a class="btn btn-secondary" href="pdf.html">Export PDF</a>
+      </div>
+    </section>
+
+    <section class="stage-col" id="spinStage" aria-label="360 product view - scroll or drag to rotate">
+      <div class="pills" id="framePills" aria-hidden="true"></div>
+      <div class="canvas-wrap">
+        <canvas id="spinCanvas" width="1200" height="1200" aria-hidden="true"></canvas>
+        <div class="frame-badge" id="frameBadge">1 / 4</div>
+      </div>
+    </section>
+  </main>
+
+  <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+  <aside class="drawer" id="shortlistDrawer" role="dialog" aria-labelledby="drawerTitle" aria-modal="true" hidden>
+    <header class="drawer-header">
+      <h2 id="drawerTitle">Shortlist</h2>
+      <button type="button" class="drawer-close" id="closeShortlist">Close</button>
+    </header>
+    <div class="drawer-body" id="shortlistItems"></div>
+    <footer class="drawer-footer">
+      <p class="drawer-status" id="drawerStatus">0 products ready to export</p>
+      <a class="btn btn-primary btn-block" href="pdf.html" id="drawerExport">Export PDF · 0 products</a>
+    </footer>
+  </aside>
+
+  <script src="js/product.js"></script>
+  <script>window.LocofoCatalog.setCurrent('8648844');</script>
+  <script src="js/shortlist.js"></script>
+  <script src="js/spin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

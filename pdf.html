@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Locofo Catalog - Spec sheet export</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/pdf.css" />
+</head>
+<body class="pdf-body">
+  <div class="pdf-toolbar no-print">
+    <a href="index.html">← Back to catalog</a>
+    <button type="button" class="btn-print" id="printBtn">Print / Save PDF</button>
+  </div>
+
+  <div id="sheets"></div>
+
+  <p class="empty-notice no-print" id="emptyNotice" hidden>
+    Your shortlist is empty - showing the MH900 demo spec. Add MH900, MH500, and/or Anti-Fog from the catalog before exporting a buyer pack.
+  </p>
+
+  <script src="js/product.js"></script>
+  <script src="js/shortlist.js"></script>
+  <script>
+    (function () {
+      const catalog = window.LOCOFO_PRODUCTS || {};
+      const shortlistIds = window.LocofoShortlist.getIds();
+      const notice = document.getElementById('emptyNotice');
+      const sheetsRoot = document.getElementById('sheets');
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function sheetHtml(p, pageNum, pageTotal) {
+        const bullets = (p.bullets || []).map((b) => `<li>${escapeHtml(b)}</li>`).join('');
+        const materials = (p.materials || []).map((line) => `<p>${escapeHtml(line)}</p>`).join('');
+        const weight = (p.weightLines || []).map((line) => `<p>${escapeHtml(line)}</p>`).join('');
+        const performance = (p.performance || []).map((line) => `<p>${escapeHtml(line)}</p>`).join('');
+        const logistics = (p.logistics || []).map((line) => `<p>${escapeHtml(line)}</p>`).join('');
+
+        return `
+    <article class="sheet" data-product-id="${escapeHtml(p.id)}">
+      <div class="sheet-grid">
+        <div class="sheet-visual">
+          <img src="${escapeHtml(p.thumb)}" alt="${escapeHtml(p.pdfHeroAlt || p.title)}" class="hero-img" />
+          <ul class="feature-bullets">${bullets}</ul>
+        </div>
+        <div class="sheet-specs">
+          <p class="sheet-kicker">CUBE-STYLE SPEC SHEET</p>
+          <h1 class="sheet-title">${escapeHtml(p.pdfTitle || p.title)}</h1>
+          <p class="sheet-meta">${escapeHtml(p.pdfMeta || `${p.subtitle} · ${p.variant} · Model ${p.id}`)}</p>
+          <p class="sheet-summary">${escapeHtml(p.summary || '')}</p>
+          <div class="thumb-row">
+            <img src="${escapeHtml(p.pdfThumbA || p.thumb)}" alt="Front angle" width="140" height="105" />
+            <img src="${escapeHtml(p.pdfThumbB || p.thumb)}" alt="Side angle" width="140" height="105" />
+          </div>
+
+          <section class="spec-block">
+            <h2>Materials</h2>
+            ${materials}
+          </section>
+          <section class="spec-block">
+            <h2>Dimensions / Weight</h2>
+            ${weight}
+          </section>
+          <section class="spec-block">
+            <h2>Performance</h2>
+            ${performance}
+          </section>
+          <section class="spec-block">
+            <h2>Logistics (placeholders - not final)</h2>
+            ${logistics}
+          </section>
+        </div>
+      </div>
+      <footer class="sheet-footer">
+        <span>${pageNum}${pageTotal > 1 ? ' / ' + pageTotal : ''}</span>
+        <span class="confidential">Locofo Catalog · PRIVATE AND CONFIDENTIAL</span>
+      </footer>
+    </article>`;
+      }
+
+      let products = [];
+      if (shortlistIds.length === 0) {
+        if (notice) notice.hidden = false;
+        const fallback = catalog['8827754'];
+        if (fallback) products = [fallback];
+      } else {
+        products = shortlistIds.map((id) => catalog[id]).filter(Boolean);
+        if (products.length === 0) {
+          if (notice) notice.hidden = false;
+          const fallback = catalog['8827754'];
+          if (fallback) products = [fallback];
+        }
+      }
+
+      const total = products.length;
+      sheetsRoot.innerHTML = products.map((p, i) => sheetHtml(p, i + 1, total)).join('');
+
+      document.getElementById('printBtn')?.addEventListener('click', () => window.print());
+    })();
+  </script>
+</body>
+</html>

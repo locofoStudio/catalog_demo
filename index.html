@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Locofo Catalog - Running &amp; cycling sunglasses</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="nav" role="banner">
+    <a class="brand" href="index.html">Locofo Catalog</a>
+    <div class="nav-end">
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html" class="nav-link" aria-current="page">Products</a>
+        <button type="button" class="nav-link nav-link-btn" id="openShortlistNav" aria-haspopup="dialog">
+          Shortlist (<span id="shortlistCount">0</span>)
+        </button>
+        <a href="pdf.html" class="nav-link" id="navExportPdf">Export PDF</a>
+      </nav>
+      <div class="chip" aria-label="Pricing">Wholesale demo · price on request</div>
+    </div>
+  </header>
+
+  <main class="catalog" id="catalog">
+    <header class="catalog-header">
+      <p class="catalog-eyebrow">Accessories · Sunglasses</p>
+      <h1 class="catalog-title">Running &amp; cycling sunglasses</h1>
+    </header>
+
+    <div class="product-grid" role="list">
+      <!-- LIVE: MH900 → product.html -->
+      <a class="product-card product-card--live product-card--mh900" href="product.html" role="listitem">
+        <img class="product-card-photo" src="frames/01.jpg" alt="" width="480" height="480" />
+        <div class="product-card-info">
+          <h2 class="product-card-title">MH900 Full Lens HD</h2>
+          <p class="product-card-meta">Grey Volcano · SKU 8827754</p>
+          <p class="product-card-line">CAT 2–4 · Photochromic · Mountain</p>
+          <p class="product-card-price">Price on request</p>
+        </div>
+      </a>
+
+      <!-- LIVE: MH500 → product-mh500.html -->
+      <a class="product-card product-card--live product-card--mh500" href="product-mh500.html" role="listitem">
+        <img class="product-card-photo" src="frames-mh500/01.jpg" alt="" width="480" height="480" />
+        <div class="product-card-info">
+          <h2 class="product-card-title">MH500 Category 3</h2>
+          <p class="product-card-meta">Smoked black · SKU 863953</p>
+          <p class="product-card-line">CAT 3 · Wraparound · Hiking</p>
+          <p class="product-card-price">Price on request</p>
+        </div>
+      </a>
+
+      <!-- LIVE: Anti-Fog → product-antifog.html -->
+      <a class="product-card product-card--live product-card--antifog" href="product-antifog.html" role="listitem">
+        <img class="product-card-photo" src="frames-antifog/01.jpg" alt="" width="480" height="480" />
+        <div class="product-card-info">
+          <h2 class="product-card-title">Anti-Fog Full UV Sport</h2>
+          <p class="product-card-meta">White · SKU 8648844</p>
+          <p class="product-card-line">CAT 3 · Anti-fog · Cycling</p>
+          <p class="product-card-price">Price on request</p>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+  <aside class="drawer" id="shortlistDrawer" role="dialog" aria-labelledby="drawerTitle" aria-modal="true" hidden>
+    <header class="drawer-header">
+      <h2 id="drawerTitle">Shortlist</h2>
+      <button type="button" class="drawer-close" id="closeShortlist">Close</button>
+    </header>
+    <div class="drawer-body" id="shortlistItems"></div>
+    <footer class="drawer-footer">
+      <p class="drawer-status" id="drawerStatus">0 products ready to export</p>
+      <a class="btn btn-primary btn-block" href="pdf.html" id="drawerExport">Export PDF · 0 products</a>
+    </footer>
+  </aside>
+
+  <script src="js/product.js"></script>
+  <script src="js/shortlist.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
