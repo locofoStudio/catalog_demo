@@ -35,7 +35,7 @@
     if (listEl) {
       if (count === 0) {
         listEl.innerHTML =
-          '<p class="shortlist-empty">No products yet. Open MH900 from Products and save to shortlist.</p>';
+          '<p class="shortlist-empty">No products yet. Open MH900, MH500, or Anti-Fog and save it to shortlist.</p>';
       } else {
         const cards = catalog ? catalog.resolveShortlistIds(ids) : [];
         listEl.innerHTML = cards.map((p) => productCardHtml(p)).join('');

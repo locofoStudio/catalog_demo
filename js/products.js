@@ -201,19 +201,17 @@
     },
     {
       id: '863953',
-      interactive: false,
+      interactive: true,
       title: 'MH500 Category 3',
       subtitle: 'Hiking sunglasses',
       tags: 'CAT 3 · Wraparound · Trail',
-      placeholder: 'mh500',
     },
     {
       id: '8648844',
-      interactive: false,
+      interactive: true,
       title: 'Anti-Fog Full UV Sport',
       subtitle: 'White · Ref 8648844',
       tags: 'CAT 3 · Anti-fog · Cycling',
-      placeholder: 'af',
     },
     {
       id: 'active-100',
