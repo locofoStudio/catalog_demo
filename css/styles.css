@@ -247,6 +247,11 @@ button {
   opacity: 0.85;
 }
 
+.swatch-white {
+  background: linear-gradient(145deg, #ffffff 0%, #e8e8ed 55%, #d2d2d7 100%);
+  border: 1px solid var(--line);
+}
+
 .cta-row {
   display: flex;
   flex-wrap: wrap;

@@ -1,5 +1,5 @@
 (function () {
-  const items = window.LOCOFO_CATALOG || [];
+  const items = window.LocofoCatalog?.getListing() || window.LOCOFO_CATALOG || [];
   const grid = document.getElementById('productGrid');
   const countEl = document.getElementById('listingCount');
 

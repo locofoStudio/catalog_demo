@@ -15,71 +15,17 @@
     <button type="button" class="btn-print" id="printBtn">Print / Save PDF</button>
   </div>
 
-  <article class="sheet" id="sheet">
-    <div class="sheet-grid">
-      <div class="sheet-visual">
-        <img id="heroImg" src="frames/01.jpg" alt="CAT.2-4 Sunglasses MH900 Grey Volcano" class="hero-img" />
-        <ul class="feature-bullets">
-          <li>Photochromic CAT 2–4 · 100% UV</li>
-          <li>Ventilated lens · Adjustable nose &amp; arms</li>
-          <li>Wraparound coverage · Soft case included</li>
-        </ul>
-      </div>
-      <div class="sheet-specs">
-        <p class="sheet-kicker">CUBE-STYLE SPEC SHEET</p>
-        <h1 class="sheet-title">CAT.2-4 SUNGLASSES</h1>
-        <p class="sheet-meta">MH900 Full Lens HD · Grey Volcano · Model 8827754</p>
-        <p class="sheet-summary">
-          Optimal precision and quality of vision for mountain use. Photochromic full-lens HD sunglasses with
-          adjustable fit and ventilated wraparound coverage — built for China→US/EU buyer presentations.
-        </p>
-        <div class="thumb-row">
-          <img src="frames/01.jpg" alt="Front angle" width="140" height="105" />
-          <img src="frames/04.jpg" alt="Side angle" width="140" height="105" />
-        </div>
-
-        <section class="spec-block">
-          <h2>Materials</h2>
-          <p>Frame: SEBS 30% / Polyamide 60% / Stainless 10%</p>
-          <p>Lens: 100% Polyurethane · Screws: Stainless steel</p>
-        </section>
-        <section class="spec-block">
-          <h2>Dimensions / Weight</h2>
-          <p>Product net weight: 36 g · One size</p>
-          <p>Soft case included</p>
-        </section>
-        <section class="spec-block">
-          <h2>Performance</h2>
-          <p>CAT 2–4 photochromic · 100% UV filter</p>
-          <p>Ventilated · Wraparound coverage</p>
-        </section>
-        <section class="spec-block">
-          <h2>Logistics (placeholders — not final)</h2>
-          <p>Case pack: [placeholder] / carton · Origin: China</p>
-          <p>Loading qty: [placeholder] — confirm with ops</p>
-        </section>
-      </div>
-    </div>
-    <footer class="sheet-footer">
-      <span>1</span>
-      <span class="confidential">Locofo Catalog · PRIVATE AND CONFIDENTIAL</span>
-    </footer>
-  </article>
+  <div id="pdfSheets"></div>
 
   <p class="empty-notice no-print" id="emptyNotice" hidden>
     Your shortlist is empty — showing the MH900 demo spec. Add products from the catalog before exporting a buyer pack.
   </p>
 
-  <script src="js/product.js"></script>
+  <script src="js/products.js"></script>
   <script src="js/shortlist.js"></script>
+  <script src="js/pdf-render.js"></script>
   <script>
-    (function () {
-      const ids = window.LocofoShortlist.getIds();
-      const notice = document.getElementById('emptyNotice');
-      if (ids.length === 0 && notice) notice.hidden = false;
-
-      document.getElementById('printBtn')?.addEventListener('click', () => window.print());
-    })();
+    document.getElementById('printBtn')?.addEventListener('click', () => window.print());
   </script>
 </body>
 </html>

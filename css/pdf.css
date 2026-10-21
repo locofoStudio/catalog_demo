@@ -3,6 +3,7 @@
   --muted: #6e6e73;
   --line: #d2d2d7;
   --bg: #f5f5f7;
+  --accent: #0071e3;
 }
 
 * {
@@ -51,12 +52,16 @@ body.pdf-body {
   color: var(--muted);
 }
 
-.sheet {
+#pdfSheets .sheet {
   max-width: 1100px;
   margin: 32px auto 48px;
   padding: 40px 48px 32px;
   background: #fff;
   box-shadow: 0 2px 24px rgba(0, 0, 0, 0.06);
+}
+
+#pdfSheets .sheet + .sheet {
+  margin-top: 48px;
 }
 
 .sheet-grid {
@@ -174,11 +179,18 @@ body.pdf-body {
     background: #fff;
   }
 
-  .sheet {
+  #pdfSheets .sheet {
     margin: 0;
     padding: 0.4in 0.5in;
     box-shadow: none;
     max-width: none;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  #pdfSheets .sheet:last-child {
+    page-break-after: auto;
+    break-after: auto;
   }
 
   @page {

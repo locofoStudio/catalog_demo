@@ -1,6 +1,7 @@
 (function () {
-  const product = window.LOCOFO_PRODUCT;
+  const catalog = window.LocofoCatalog;
   const shortlist = window.LocofoShortlist;
+  const currentProduct = window.LOCOFO_PRODUCT;
 
   const countEl = document.getElementById('shortlistCount');
   const drawer = document.getElementById('shortlistDrawer');
@@ -11,14 +12,15 @@
   const openNav = document.getElementById('openShortlistNav');
   const closeBtn = document.getElementById('closeShortlist');
 
-  function productCardHtml() {
+  function productCardHtml(product) {
+    const href = product.pdpHref || 'product.html';
     return `
       <article class="shortlist-card" data-id="${product.id}">
         <img class="shortlist-thumb" src="${product.thumb}" alt="" width="72" height="72" />
         <div class="shortlist-meta">
           <p class="shortlist-title">${product.title}</p>
           <p class="shortlist-sub">${product.id} · ${product.variant}</p>
-          <a class="shortlist-view" href="product.html">View product</a>
+          <a class="shortlist-view" href="${href}">View product</a>
           <button type="button" class="link-remove" data-remove="${product.id}">Remove</button>
         </div>
       </article>
@@ -33,9 +35,10 @@
     if (listEl) {
       if (count === 0) {
         listEl.innerHTML =
-          '<p class="shortlist-empty">No products yet. Open the MH900 card from Products and save to shortlist.</p>';
+          '<p class="shortlist-empty">No products yet. Save items from the interactive product pages (MH900 or Anti-Fog).</p>';
       } else {
-        listEl.innerHTML = ids.includes(product.id) ? productCardHtml() : '';
+        const cards = catalog ? catalog.resolveShortlistIds(ids) : [];
+        listEl.innerHTML = cards.map((p) => productCardHtml(p)).join('');
       }
       listEl.querySelectorAll('[data-remove]').forEach((btn) => {
         btn.addEventListener('click', () => {
@@ -92,6 +95,7 @@
     openDrawer,
     closeDrawer,
     onRemove: null,
+    currentProductId: currentProduct?.id,
   };
 
   renderShortlist();
