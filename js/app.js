@@ -93,6 +93,105 @@
     tab.addEventListener('click', () => switchTab(tab.dataset.tab));
   });
 
+  function stepTab(direction) {
+    const index = tabOrder.indexOf(activeTab);
+    const next = tabOrder[index + direction];
+    if (!next) return false;
+    switchTab(next);
+    return true;
+  }
+
+  const scrollRoot = document.getElementById('pdp');
+  if (scrollRoot && tabs.length) {
+    let wheelAccum = 0;
+    let lastWheel = 0;
+    let lockedUntil = 0;
+    const wheelThreshold = 48;
+    const lockMs = 560;
+
+    function canStep(direction) {
+      const index = tabOrder.indexOf(activeTab);
+      return direction > 0 ? index < tabOrder.length - 1 : index > 0;
+    }
+
+    function wheelPixels(event) {
+      if (event.deltaMode === 1) return event.deltaY * 16;
+      if (event.deltaMode === 2) return event.deltaY * window.innerHeight;
+      return event.deltaY;
+    }
+
+    function tryStep(direction) {
+      if (!canStep(direction)) return false;
+      const now = performance.now();
+      if (now < lockedUntil) return true;
+      if (!stepTab(direction)) return false;
+      lockedUntil = now + lockMs;
+      return true;
+    }
+
+    scrollRoot.addEventListener(
+      'wheel',
+      (event) => {
+        if (document.body.classList.contains('drawer-open')) return;
+        if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+
+        const delta = wheelPixels(event);
+        if (!delta) return;
+        const direction = delta > 0 ? 1 : -1;
+        if (!canStep(direction)) return;
+
+        event.preventDefault();
+        const now = performance.now();
+        if (now < lockedUntil) return;
+        if (now - lastWheel > 140) wheelAccum = 0;
+        lastWheel = now;
+        if (wheelAccum && Math.sign(wheelAccum) !== direction) wheelAccum = 0;
+        wheelAccum += delta;
+        if (Math.abs(wheelAccum) < wheelThreshold) return;
+        wheelAccum = 0;
+        tryStep(direction);
+      },
+      { passive: false }
+    );
+
+    let touchY = 0;
+    let touchX = 0;
+    let touchArmed = false;
+
+    scrollRoot.addEventListener(
+      'touchstart',
+      (event) => {
+        if (event.touches.length !== 1) return;
+        touchY = event.touches[0].clientY;
+        touchX = event.touches[0].clientX;
+        touchArmed = true;
+      },
+      { passive: true }
+    );
+
+    scrollRoot.addEventListener(
+      'touchmove',
+      (event) => {
+        if (!touchArmed || event.touches.length !== 1) return;
+        if (document.body.classList.contains('drawer-open')) return;
+        const dy = touchY - event.touches[0].clientY;
+        const dx = touchX - event.touches[0].clientX;
+        if (Math.abs(dy) < 42 || Math.abs(dx) > Math.abs(dy)) return;
+        touchArmed = false;
+        const direction = dy > 0 ? 1 : -1;
+        if (tryStep(direction)) event.preventDefault();
+      },
+      { passive: false }
+    );
+
+    scrollRoot.addEventListener('touchend', () => {
+      touchArmed = false;
+    });
+    scrollRoot.addEventListener('touchcancel', () => {
+      touchArmed = false;
+    });
+  }
+
   function escapeHtml(str) {
     return String(str)
       .replace(/&/g, '&amp;')
