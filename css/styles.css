@@ -128,14 +128,6 @@ button {
   display: block;
 }
 
-.nav-export-short {
-  display: none;
-}
-
-.nav-export-long {
-  display: inline;
-}
-
 
 /* —— Desktop scroll theater: tab-to-tab + matching frames —— */
 .theater {
@@ -514,6 +506,9 @@ button {
   flex: 1;
   overflow-y: auto;
   padding: 8px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .shortlist-empty {
@@ -620,24 +615,8 @@ button {
     font-size: 11px;
   }
 
-  .nav-export-long {
-    display: none;
-  }
-
-  .nav-export-short {
-    display: inline;
-  }
-
-  /* PDP mobile: Shortlist + Export PDF only (full label), no Products */
+  /* PDP mobile: Shortlist only, no Products */
   body[data-product-id] .nav-link-products {
-    display: none;
-  }
-
-  body[data-product-id] .nav-export-long {
-    display: inline;
-  }
-
-  body[data-product-id] .nav-export-short {
     display: none;
   }
 

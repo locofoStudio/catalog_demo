@@ -2,9 +2,6 @@
   const product = window.LOCOFO_PRODUCT;
   if (!product?.frames?.length) return;
 
-  const frameSrcs = product.frames;
-  const frameCount = frameSrcs.length;
-
   const theater = document.getElementById('theater');
   const stage = document.getElementById('spinStage');
   const canvas = document.getElementById('spinCanvas');
@@ -17,7 +14,21 @@
   const panels = [...document.querySelectorAll('.tab-panel')];
   const desktopMq = window.matchMedia('(min-width: 901px)');
 
-  const pillSpans = frameSrcs.map((_, i) => {
+  /* One photo per tab. Extra angles in the file list are not separate steps. */
+  function framesForTabs(srcs, tabCount) {
+    if (!tabCount || tabCount >= srcs.length) return srcs.slice();
+    if (tabCount <= 1) return [srcs[0]];
+    return Array.from({ length: tabCount }, (_, i) => {
+      const index = Math.round((i / (tabCount - 1)) * (srcs.length - 1));
+      return srcs[index];
+    });
+  }
+
+  const frameSrcs = framesForTabs(product.frames, tabs.length);
+  const frameCount = frameSrcs.length;
+
+  const dotCount = tabs.length || frameCount;
+  const pillSpans = Array.from({ length: dotCount }, (_, i) => {
     const s = document.createElement('span');
     if (i === 0) s.classList.add('on');
     if (pillsEl) pillsEl.appendChild(s);
@@ -71,7 +82,8 @@
       drawFrame(current);
     }
     if (badge) badge.textContent = `${current + 1} / ${frameCount}`;
-    pillSpans.forEach((s, i) => s.classList.toggle('on', i === current));
+    const activeDot = tabs.length ? tabIndexForFrame(current) : current;
+    pillSpans.forEach((s, i) => s.classList.toggle('on', i === activeDot));
   }
 
   function switchTab(name) {
@@ -92,7 +104,7 @@
     return tab?.dataset.tab || 'desc';
   }
 
-  /** Representative frame for each tab (7 frames → 4 tabs). */
+  /** Tab index and frame index are the same: one image per tab. */
   function frameForTabIndex(tabIndex) {
     if (tabs.length <= 1) return 0;
     if (frameCount <= 1) return 0;

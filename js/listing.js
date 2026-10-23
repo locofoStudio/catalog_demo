@@ -6,8 +6,6 @@
   const PLACEHOLDER_LABELS = {
     mh500: 'MH500',
     af: 'AF',
-    a100: 'A100',
-    e500: 'E500',
   };
 
   function thumbMarkup(item) {
@@ -26,11 +24,9 @@
     const title = `<h2 class="card-title">${item.title}</h2>`;
 
     if (item.interactive) {
-      const demoBadge =
-        '<span class="card-demo-badge card-demo-badge--interactive">Interactive demo</span>';
       return `
         <a class="product-card product-card--interactive" href="${item.href}">
-          <div class="card-media">${thumbMarkup(item)}${demoBadge}</div>
+          <div class="card-media${item.media ? ` card-media--${item.media}` : ''}">${thumbMarkup(item)}</div>
           <div class="card-body">
             ${title}
             ${meta}

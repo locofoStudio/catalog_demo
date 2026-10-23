@@ -198,6 +198,7 @@
       title: 'MH900 Full Lens HD',
       subtitle: 'Grey Volcano · SKU 8827754',
       tags: 'CAT 2–4 · Photochromic · Mountain',
+      media: 'mh900',
     },
     {
       id: '863953',
@@ -205,6 +206,7 @@
       title: 'MH500 Category 3',
       subtitle: 'Hiking sunglasses',
       tags: 'CAT 3 · Wraparound · Trail',
+      media: 'mh500',
     },
     {
       id: '8648844',
@@ -212,22 +214,7 @@
       title: 'Anti-Fog Full UV Sport',
       subtitle: 'White · Ref 8648844',
       tags: 'CAT 3 · Anti-fog · Cycling',
-    },
-    {
-      id: 'active-100',
-      interactive: false,
-      title: 'Active 100 Category 3',
-      subtitle: 'Everyday sport sunglasses',
-      tags: 'CAT 3 · Lightweight · Running',
-      placeholder: 'a100',
-    },
-    {
-      id: 'explore-500',
-      interactive: false,
-      title: 'Explore 500 SQR Polarised',
-      subtitle: 'Square frame · Polarised',
-      tags: 'CAT 3 · Polarised · Lifestyle',
-      placeholder: 'e500',
+      media: 'antifog',
     },
   ];
 
